@@ -25,7 +25,7 @@ export const metadata: Metadata = {
   description: "Librow is a book borrowing library management system.",
 };
 
-const RootLayout = ({ children }: { children: ReactNode;}) => {
+const RootLayout = ({ children }: { children: ReactNode }) => {
   return (
     <html lang="en">
       <body
