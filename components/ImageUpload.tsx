@@ -14,7 +14,9 @@ const {
 
 const authenticator = async () => {
   try {
-    const response = await fetch(`${config.env.apiEndpoint}/api/auth/imagekit`);
+    // JEPROX: I've remove the /auth/ endpoint from the api endpoint because it's not needed base on the folder structure
+    // const response = await fetch(`${config.env.apiEndpoint}/api/auth/imagekit`);
+    const response = await fetch(`${config.env.apiEndpoint}/api/imagekit`);
     if (!response.ok) {
       const errorText = await response.text();
 
