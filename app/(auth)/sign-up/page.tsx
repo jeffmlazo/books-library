@@ -13,7 +13,7 @@ const Page = () => {
         fullName: "",
         email: "",
         password: "",
-        universityId: 0,
+        universityId: 0, // JEPROX: Need to add checker & notify the user that the University ID is duplicate & the length max range
         universityCard: "",
       }}
       onSubmit={signUp}
