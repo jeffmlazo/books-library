@@ -18,6 +18,9 @@ import { useRouter } from "next/navigation";
 import { bookSchema } from "@/lib/validations";
 import { Button } from "@/components/ui/button";
 import FileUpload from "@/components/FileUpload";
+import ColorPicker from "@/components/admin/ColorPicker";
+import { toast } from "@/hooks/use-toast";
+import { createBook } from "@/lib/admin/actions/book";
 
 interface Props extends Partial<Book> {
   type?: "create" | "update";
@@ -42,7 +45,24 @@ const BookForm = ({ type, ...book }: props) => {
     },
   });
 
-  const onSubmit = async (values: z.infer<typeof bookSchema>) => {};
+  const onSubmit = async (values: z.infer<typeof bookSchema>) => {
+    const result = await createBook(values);
+
+    if (result.success) {
+      toast({
+        title: "Success",
+        description: "Book created successfully",
+      });
+
+      router.push(`/admin/books/${result.data.id}`);
+    } else {
+      toast({
+        title: "Error",
+        description: result.message,
+        variant: "destructive",
+      });
+    }
+  };
 
   return (
     <Form {...form}>
@@ -188,7 +208,12 @@ const BookForm = ({ type, ...book }: props) => {
               <FormLabel className="text-base font-normal text-dark-500">
                 Primary Color
               </FormLabel>
-              <FormControl>{/* Color picker component */}</FormControl>
+              <FormControl>
+                <ColorPicker
+                  onPickerChange={field.onChange}
+                  value={field.value}
+                />
+              </FormControl>
               <FormMessage />
             </FormItem>
           )}
